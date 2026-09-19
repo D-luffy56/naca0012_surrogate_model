@@ -1,0 +1,41 @@
+{
+  "training_cases": 40,
+  "validation_cases": 7,
+  "grid_shape": [
+    128,
+    192
+  ],
+  "state_fields": [
+    "u",
+    "w",
+    "p"
+  ],
+  "pod_energy_threshold": 0.999,
+  "retained_modes": 4,
+  "retained_energy": 0.9995328783988953,
+  "training_pod_relative_l2": {
+    "u": 0.0627865195274353,
+    "w": 0.11101135611534119,
+    "p": 0.12981536984443665
+  },
+  "training_mlp_relative_l2": {
+    "u": 0.06299008942934115,
+    "w": 0.11256817384745774,
+    "p": 0.13300331118750677
+  },
+  "mlp_architecture": [
+    2,
+    64,
+    64,
+    4
+  ],
+  "mlp_activation": "ReLU",
+  "mlp_loss": "MSE on standardized POD coefficients",
+  "training_coefficient_mse": 0.14719964076543707,
+  "validation_mlp_relative_l2": {
+    "u": 0.12223370840843537,
+    "w": 0.045726677495883106,
+    "p": 0.1137842586525023
+  },
+  "validation_coefficient_mse": 4.0371422933474665
+}

@@ -1,0 +1,10 @@
+{
+  "validation_cases": 7,
+  "Cp_rmse_mean": 0.020986805556108174,
+  "Cl_mse": 5.4508541229497506e-05,
+  "Cd_mse": 4.357978777167725e-08,
+  "median_cfd_runtime_s": 93.9,
+  "pod_mlp_inference_s": 0.006198708800002351,
+  "median_speedup": 15148.316049297944,
+  "coefficient_method_note": "CL/CD predicted by companion 2\u219264\u219264\u21922 ReLU MLP; not integrated from the u,w,p POD reconstruction."
+}
