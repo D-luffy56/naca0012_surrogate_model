@@ -1,0 +1,48 @@
+{
+  "description": "Coefficient DeepONet with approximate steady SST graph residuals",
+  "seed": 42,
+  "latent": 32,
+  "adam_steps": 1500,
+  "lbfgs_steps": 500,
+  "limitation": "Least-squares graph derivatives and CFD wall-value loss do not reproduce OpenFOAM finite-volume operators or nonlinear omega wall functions exactly.",
+  "training_cases": 40,
+  "validation_cases": 7,
+  "native_points": 38610,
+  "wall_points": 400,
+  "physics_points": 33692,
+  "retained_modes": 16,
+  "epochs": 20,
+  "physics_weight": 0.0001,
+  "hidden_units": [
+    32,
+    32
+  ],
+  "activation": "tanh",
+  "optimizer": "lbfgs",
+  "l2": 0.0001,
+  "wall_weight": 0.1,
+  "reference_residual_scale": {
+    "continuity": 0.06905907392501831,
+    "momentum_x": 0.03877554088830948,
+    "momentum_z": 0.03713240101933479,
+    "k_transport": 0.004368950612843037,
+    "omega_transport": 40.59395980834961,
+    "nut_closure": 9.999999747378752e-06
+  },
+  "validation_baseline_relative_l2": {
+    "u": 0.009885248728096485,
+    "w": 0.07649911195039749,
+    "p": 0.07427632808685303,
+    "k": 0.0523623563349247,
+    "omega": 0.019508251920342445,
+    "nut": 0.045451950281858444
+  },
+  "validation_sst_relative_l2": {
+    "u": 0.009910575114190578,
+    "w": 0.0767880380153656,
+    "p": 0.07456683367490768,
+    "k": 0.0524420440196991,
+    "omega": 0.019572395831346512,
+    "nut": 0.04547838494181633
+  }
+}
