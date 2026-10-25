@@ -1,0 +1,24 @@
+{
+  "kind": "mlp64",
+  "training_cases": 40,
+  "validation_cases": 7,
+  "representation": "native mesh, six nondimensional fields, 16 POD modes",
+  "data_source": "native_sst_snapshots.npz; basis from saved SST training run",
+  "fit_note": "Refitted estimator; original sklearn data-only estimator was not saved",
+  "validation_relative_l2": {
+    "u": 0.005966225229468994,
+    "w": 0.016962645200544697,
+    "p": 0.02531043433905146,
+    "k": 0.052092822996186984,
+    "omega": 0.009145188555326264,
+    "nut": 0.04522310319889679
+  },
+  "fresh_relative_l2": {
+    "u": 0.01139349282838646,
+    "w": 0.03212519700968598,
+    "p": 0.044061940731807914,
+    "k": 0.06505159509125505,
+    "omega": 0.016816605751084273,
+    "nut": 0.09432003036950744
+  }
+}
