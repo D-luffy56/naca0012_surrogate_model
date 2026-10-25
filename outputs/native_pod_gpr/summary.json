@@ -1,0 +1,25 @@
+{
+  "kind": "gpr",
+  "training_cases": 40,
+  "validation_cases": 7,
+  "representation": "native mesh, six nondimensional fields, 16 POD modes",
+  "data_source": "native_sst_snapshots.npz; basis from saved SST training run",
+  "fit_note": "Refitted estimator; original sklearn data-only estimator was not saved",
+  "validation_relative_l2": {
+    "u": 0.006224989204541429,
+    "w": 0.022846932324402307,
+    "p": 0.030128271660340458,
+    "k": 0.052701231274819224,
+    "omega": 0.009929724396913508,
+    "nut": 0.044795824965568554
+  },
+  "fitted_kernel": "1.63**2 * Matern(length_scale=[1.95, 0.397], nu=2.5) + WhiteKernel(noise_level=0.00121)",
+  "fresh_relative_l2": {
+    "u": 0.007507837227346305,
+    "w": 0.017858527658713964,
+    "p": 0.021149378749129883,
+    "k": 0.0742847550733337,
+    "omega": 0.010482541343263053,
+    "nut": 0.04476780990996703
+  }
+}

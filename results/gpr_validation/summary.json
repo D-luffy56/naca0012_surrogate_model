@@ -1,0 +1,175 @@
+{
+  "configuration": {
+    "training_cases": 40,
+    "original_validation_cases": 7,
+    "fresh_cfd_cases": 7,
+    "fields": [
+      "u",
+      "w",
+      "p",
+      "k",
+      "omega",
+      "nut"
+    ],
+    "pod_modes": 16,
+    "native_mesh_points": 38610,
+    "kernel_fitted": "1.63**2 * Matern(length_scale=[1.95, 0.397], nu=2.5) + WhiteKernel(noise_level=0.00121)",
+    "inputs": [
+      "Re",
+      "AoA_deg"
+    ],
+    "preprocessing": "Case-specific Uinf normalization; field scaling; POD and input/coefficient scaling fitted on training cases only",
+    "pressure_convention": "OpenFOAM kinematic pressure p/rho; nondimensionalized by Uinf squared"
+  },
+  "original_validation_aggregate_relative_l2": {
+    "all": {
+      "u": 0.006224988801228216,
+      "w": 0.022846928804330507,
+      "p": 0.030128320119259137,
+      "k": 0.052701188798351825,
+      "omega": 0.009929730530529325,
+      "nut": 0.044795811439592804
+    },
+    "near_wall_0_to_0.05_chord": {
+      "u": 0.0062763970568934496,
+      "w": 0.020132852080178346,
+      "p": 0.031326276162297086,
+      "k": 0.03105074120121276,
+      "omega": 0.009514088003881503,
+      "nut": 0.046299691562852435
+    },
+    "wake_1_to_3_chord": {
+      "u": 0.010140896779428539,
+      "w": 0.03045310790003317,
+      "p": 0.013049733759419403,
+      "k": 0.10149789497817129,
+      "omega": 0.03349760892617123,
+      "nut": 0.06882355672498619
+    }
+  },
+  "fresh_aggregate_relative_l2": {
+    "gpr_matern": {
+      "all": {
+        "u": 0.007507837827963009,
+        "w": 0.017858546963963527,
+        "p": 0.02114937460159624,
+        "k": 0.0742847594568406,
+        "omega": 0.01048254433975055,
+        "nut": 0.04476780901632314
+      },
+      "near_wall_0_to_0.05_chord": {
+        "u": 0.010320350522016594,
+        "w": 0.01440668909731735,
+        "p": 0.021945035648480996,
+        "k": 0.05034910580882845,
+        "omega": 0.010099693508608915,
+        "nut": 0.09595126932915901
+      },
+      "wake_1_to_3_chord": {
+        "u": 0.010848753868886472,
+        "w": 0.03118163050666437,
+        "p": 0.033512112090821077,
+        "k": 0.12872745392793242,
+        "omega": 0.03302533310479701,
+        "nut": 0.07183746756127828
+      }
+    },
+    "mlp_64_data": {
+      "all": {
+        "u": 0.010939984455078097,
+        "w": 0.013551802061079098,
+        "p": 0.026021198336516983,
+        "k": 0.06652745430544457,
+        "omega": 0.012925119449267755,
+        "nut": 0.09578209143730779
+      },
+      "near_wall_0_to_0.05_chord": {
+        "u": 0.006119709481466551,
+        "w": 0.013527626351755967,
+        "p": 0.02709736353379092,
+        "k": 0.033849661133604464,
+        "omega": 0.012014361198354931,
+        "nut": 0.04778619416053028
+      },
+      "wake_1_to_3_chord": {
+        "u": 0.021099737380874395,
+        "w": 0.014910782638435783,
+        "p": 0.017013438340802663,
+        "k": 0.13340195650923437,
+        "omega": 0.053774235870205946,
+        "nut": 0.09082653406063988
+      }
+    }
+  },
+  "fresh_quality": [
+    {
+      "id": "N01",
+      "final_iteration": 882,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 0.00012438715953999938,
+      "last_50_cl_range": 0.0056190242369
+    },
+    {
+      "id": "N02",
+      "final_iteration": 1121,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 0.00040476114828999835,
+      "last_50_cl_range": 0.005253652154900035
+    },
+    {
+      "id": "N03",
+      "final_iteration": 1036,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 0.00021802513386999858,
+      "last_50_cl_range": 0.004582546511999963
+    },
+    {
+      "id": "N04",
+      "final_iteration": 1147,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 0.0010696281613600013,
+      "last_50_cl_range": 0.004599874103000001
+    },
+    {
+      "id": "N05",
+      "final_iteration": 781,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 4.36487260729989e-05,
+      "last_50_cl_range": 0.0063057368132
+    },
+    {
+      "id": "N06",
+      "final_iteration": 1100,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 0.0003046707793099984,
+      "last_50_cl_range": 0.004762038184299988
+    },
+    {
+      "id": "N07",
+      "final_iteration": 1157,
+      "solver_finished": true,
+      "residual_control_converged": true,
+      "force_stable": false,
+      "last_50_cd_range": 0.0004925848106499993,
+      "last_50_cl_range": 0.00575694279100003
+    }
+  ],
+  "limitations": [
+    "Fresh CFD cases met solver residual control, but all failed the stricter last-50-force-sample stability criterion.",
+    "The fresh comparison's data-only MLP was refitted and did not exactly reproduce the older saved baseline predictions.",
+    "The seven fresh cases have already been inspected and must not be reused as an untouched selection set.",
+    "GPR is data-only; it has no SST physics loss or wall condition enforcement."
+  ]
+}
