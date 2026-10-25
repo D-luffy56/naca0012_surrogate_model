@@ -1,5 +1,8 @@
 # NACA 0012 POD–MLP Aerodynamic Surrogate
 
+The project's six model families, variant branches, accuracy tables, and
+comparison plot are collected in [MODEL_VARIANTS.md](MODEL_VARIANTS.md).
+
 A reproducible AE646 scientific machine-learning project that converts a fixed-geometry family of OpenFOAM CFD solutions into a reduced-order surrogate:
 
 ```text

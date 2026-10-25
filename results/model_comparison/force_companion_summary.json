@@ -1,0 +1,12 @@
+{
+  "method": "Separate 64-64 MLP trained on 40 CFD force coefficients; not derived from any POD flow field",
+  "reference": "Mean of final 20 OpenFOAM force-coefficient samples",
+  "limitation": "All seven fresh cases passed solver residual control but failed the earlier strict force-stability threshold",
+  "cases": 7,
+  "Cl_mae": 0.005685220706486921,
+  "Cl_rmse": 0.007681448628753632,
+  "Cl_mse": 5.900465303618105e-05,
+  "Cd_mae": 0.00020105444468147083,
+  "Cd_rmse": 0.00030863045911477203,
+  "Cd_mse": 9.525276029339498e-08
+}
