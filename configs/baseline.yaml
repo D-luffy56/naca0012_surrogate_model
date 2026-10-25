@@ -1,0 +1,21 @@
+name: baseline-v1
+source: OpenFOAM simpleFoam, steady incompressible RANS, kOmegaSST
+training_cases: 40
+validation_cases: 7
+inputs: [Re, AoA_deg]
+fields: [u, w, p]
+grid:
+  x_min: -2.0
+  x_max: 4.0
+  z_min: -1.5
+  z_max: 1.5
+  nx: 192
+  nz: 128
+pod:
+  energy_threshold: 0.999
+  retained_modes: 4
+mlp:
+  hidden_layers: [64, 64]
+  activation: relu
+  solver: lbfgs
+  random_state: 42

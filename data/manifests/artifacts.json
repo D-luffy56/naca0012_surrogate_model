@@ -1,0 +1,36 @@
+{
+  "version": "baseline-v1",
+  "source": "Original D:/CFD/NACA0012/dataset/pod_model outputs; hashes verified; field error summary corrected separately",
+  "files": [
+    {
+      "path": "models/baseline-v1/pod_basis.npz",
+      "bytes": 1277738,
+      "sha256": "5cd5221fc396ec1f85fac4dbe8ebe0f9df93438c0de89ee74da3a0f4626e9d06"
+    },
+    {
+      "path": "models/baseline-v1/pod_mlp.joblib",
+      "bytes": 81825,
+      "sha256": "3ce9a0aa79eadb8e5fcbc76b5a3c729542e31f5ac8a4183a0db0fcc0177ba308"
+    },
+    {
+      "path": "models/baseline-v1/aero_coefficients_mlp.joblib",
+      "bytes": 79905,
+      "sha256": "74c7b0bff599c4e62d5441a82c63efcb2fb94f84dc8753a1bdc6610884cec2f7"
+    },
+    {
+      "path": "data/processed/baseline-v1/training_snapshots.npz",
+      "bytes": 10020911,
+      "sha256": "8624a4e491d1b8f0913f2eda0d263d137d551dc54edb575c0108eefbd711fe05"
+    },
+    {
+      "path": "data/processed/baseline-v1/validation_snapshots.npz",
+      "bytes": 1742783,
+      "sha256": "e2982bc4715444ee3d8399c246690f7db8263628d98522a08c669a40aa24095e"
+    },
+    {
+      "path": "data/processed/baseline-v1/validation_predictions.npz",
+      "bytes": 3796908,
+      "sha256": "15728935f8489a1975eb45272f989d2915f0ab2ba948a9dfd1158bcc0c3fb0de"
+    }
+  ]
+}
