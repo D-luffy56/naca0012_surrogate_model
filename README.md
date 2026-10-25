@@ -1,65 +1,112 @@
 # NACA 0012 POD–MLP Aerodynamic Surrogate
 
-A reproducible AE646 SciML project that turns a family of high-fidelity CFD solutions into a fast reduced-order model. The workflow learns the relationship
+A reproducible AE646 scientific machine-learning project that converts a fixed-geometry family of OpenFOAM CFD solutions into a reduced-order surrogate:
 
-`(Reynolds number, angle of attack) → POD coefficients → u, w, p flow field`
+```text
+(Reynolds number, angle of attack) -> POD coefficients -> u, w, p flow field
+```
 
-for a fixed NACA 0012 airfoil.
+This repository implements a data-driven POD–MLP workflow. It does **not** contain a physics-informed neural network (PINN).
 
-## Why this project
+## Verified repository results
 
-CFD is reliable but each new operating condition requires another solver run. Here, CFD is used once to generate a trusted snapshot library. Proper Orthogonal Decomposition (POD) compresses those snapshots into a small set of dominant flow patterns, and a neural network predicts their coefficients at a new operating condition. The result is intended for rapid aerodynamic exploration, not as a replacement for final high-fidelity verification.
+The values below are copied from the committed result files, rather than recomputed from data that is absent from the repository.
 
-## Headline results
-
-| Item | Result |
+| Item | Committed result |
 | --- | --- |
 | Training CFD cases | 40 |
 | Independent validation cases | 7 |
-| Flow solver | OpenFOAM `simpleFoam`: steady, incompressible turbulent RANS; SIMPLE; k–ω SST |
+| Recorded CFD setup | OpenFOAM `simpleFoam`; steady incompressible RANS; SIMPLE; k–omega SST |
 | Reynolds-number range | 2.0M–6.0M |
-| Training angle-of-attack range | −4° to 14° |
-| POD shared grid | 192 × 128 points; 24,468 fluid locations |
+| Training angle-of-attack range | -4° to 14° |
+| Shared POD grid | 192 x 128 points; 24,468 fluid locations |
 | State per snapshot | `u`, `w`, `p` (73,404 scalar values) |
-| POD modes kept | 4 |
+| POD modes retained | 4 |
 | Scaled POD energy retained | 99.9533% |
-| Validation relative L2 error | u: 12.22%, w: 4.57%, p: 11.38% |
+| Mean validation relative L2 error | u: 12.22%; w: 4.57%; p: 11.38% |
 | Mean validation Cp RMSE | 0.02099 |
-| Median CFD solve time | 93.9 s |
+| Median recorded CFD solve time | 93.9 s |
 | In-memory POD–MLP inference | 6.20 ms |
-| Solver-to-inference speed-up | ~15,148× |
+| Median recorded speed-up | about 15,148x |
 
-The speed-up compares a completed CFD solve with already-loaded model inference; it does not include disk I/O, mesh generation, loading a model, or plotting.
+Sources: [`results/summary.json`](results/summary.json) and [`results/aerodynamic_validation/engineering_summary.json`](results/aerodynamic_validation/engineering_summary.json).
+
+The timing comparison is a completed CFD solve versus an already-loaded Python model performing field inference. It excludes mesh generation, disk I/O, model loading, and plotting.
+
+## Governing equations and learned model
+
+The recorded CFD setup is steady, incompressible Reynolds-averaged Navier–Stokes (RANS). Its mean-flow equations are
+
+```text
+div(U) = 0
+
+rho (U . grad) U = -grad(p) + div[2 (mu + mu_t) S]
+```
+
+where `S` is the mean strain-rate tensor and `mu_t` is the turbulent eddy viscosity. In an SST k–omega closure, `mu_t` is obtained from two additional transport equations for turbulent kinetic energy `k` and specific dissipation rate `omega`, with SST blending and a shear-stress limiter.
+
+The repository does not include the OpenFOAM `0/`, `constant/`, or `system/` dictionaries. Therefore, it records the use of k–omega SST in the manifests and project results, but it cannot independently verify the exact OpenFOAM coefficients, wall treatment, boundary conditions, discretization schemes, or solver tolerances against the published SST equations. Add the original case dictionaries if an equation-by-equation CFD audit is required.
+
+For the reduced-order model, each sampled snapshot is scaled by field and mean-centred. With the snapshot state `q(mu)`, mean `q_bar`, and POD modes `phi_i`,
+
+```text
+q(mu) ~= q_bar + sum_i a_i(mu) phi_i
+```
+
+The modes come from the singular value decomposition of the centred snapshot matrix. The smallest rank meeting the requested cumulative energy threshold is retained. Here, four modes exceed the 99.9% target.
+
+A scikit-learn MLP with architecture `2 -> 64 -> 64 -> 4`, ReLU activations, and standardized inputs/targets learns
+
+```text
+(Re, AoA) -> (a_1, a_2, a_3, a_4)
+```
+
+using mean-squared error on standardized POD coefficients. This is supervised regression over CFD-derived coefficients; no governing-equation residual appears in the training loss.
+
+## Data used by the workflow
+
+The committed manifests define the 40 training and 7 validation cases:
+
+- [`data/manifests/training_cases.csv`](data/manifests/training_cases.csv)
+- [`data/manifests/validation_cases.csv`](data/manifests/validation_cases.csv)
+
+Training uses Re = 2M, 3M, 4M, 5M, 6M and AoA = -4°, 0°, 4°, 6°, 8°, 10°, 12°, 14°. Validation uses 2.5M/2°, 2.5M/7°, 3.5M/2°, 3.5M/7°, 4.5M/5°, 4.5M/11°, and 5.5M/5°.
+
+The POD script reads only the OpenFOAM VTK point fields `U` and `p` from
+
+```text
+cases/<split>/<case_id>/VTK/<case_id>_<latest_time>/internal.vtu
+```
+
+and forms the x–z-plane state `(U_x, U_z, p)`. The turbulence fields `k`, `omega`, and `nut` are not inputs to the current POD state or MLP.
+
+The raw case directories, VTK exports, force histories, solver logs, case dictionaries, trained `.joblib` models, and POD `.npz` artifacts are not committed. The published figures and tables can be inspected, but a clean clone cannot reproduce training or independently audit the CFD configuration until those local inputs are supplied.
 
 ## Method
 
-1. **CFD snapshots** — Solve 2D, incompressible, turbulent flow around NACA 0012 on a common mesh. The thin 3D extrusion used by OpenFOAM lets the 2D solver operate, while the physical flow plane is x–z.
-2. **Common-grid sampling** — Export CFD fields to VTK, collapse duplicate thin-extrusion points, then use Delaunay triangulation and barycentric interpolation to sample every case on the same 192 × 128 x–z grid. Airfoil-interior points are masked out.
-3. **POD/SVD** — Per-field scale and mean-centre all snapshot states, then use singular value decomposition to find dominant modes.
-4. **MLP surrogate** — Train an MLP with architecture 2 → 64 → 64 → 4 to map `(Re, AoA)` to the four POD coefficients.
-5. **Validation** — Reconstruct withheld flow fields, compare relative L2 errors and Cp, and predict CL/CD with a separate companion MLP.
+1. Filter the manifests to cases marked `converged=True` and `status=outputs_verified`.
+2. Collapse duplicate points from the thin OpenFOAM extrusion and interpolate every case to a common 192 x 128 x–z grid.
+3. Mask the analytic NACA 0012 interior.
+4. Scale `u`, `w`, and `p` separately, mean-centre the states, and compute the POD basis with SVD.
+5. Train the MLP from `(Re, AoA)` to retained POD coefficients.
+6. Reconstruct withheld fields and report relative L2 errors and surface-pressure error.
+7. Train a separate `2 -> 64 -> 64 -> 2` MLP for CL and CD.
 
-At 12° and 14°, the steady RANS results may be near stall and should be interpreted as steady approximations; they do not establish time-accurate unsteady separation.
+CL and CD are not obtained by integrating the reconstructed `u,w,p` field. Drag needs wall-shear information that is absent from the POD state, so the companion MLP learns CFD force coefficients directly.
 
 ## Repository layout
 
 ```text
-src/                         Reproducible workflow scripts
-data/manifests/              Training and validation case catalogues
-results/                     Compact figures, tables, and result summaries
-  field_validation/          Reconstructed field comparisons (V01–V07)
-  aerodynamic_validation/    Cp, CL/CD, and runtime evaluations
+src/
+  pod_naca0012.py             POD basis, field MLP, and validation predictions
+  report_pod_validation.py    Field plots and force-tail review
+  evaluate_aerodynamics.py    Cp, CL/CD, and runtime evaluation
+  download_and_catalog.py     Optional AirfRANS catalogue utility; not used by the committed OpenFOAM study
+data/manifests/               Committed case catalogues
+results/                      Committed summaries, tables, and figures
 ```
 
-The raw OpenFOAM case directories and VTK exports are deliberately excluded: they are approximately 1 GB and contain generated CFD data. The manifests document every required case and the scripts expect the following local structure:
-
-```text
-cases/
-  training/T01 ... T40/
-  validation/V01 ... V07/
-```
-
-Each case must contain `VTK/<case_id>_<latest_time>/internal.vtu` exported with the fields `U`, `p`, `k`, `omega`, and `nut`.
+The AirfRANS catalogue utility belongs to an earlier/optional data-discovery path. It requires the separately installed `airfrans` package and does not recreate the committed OpenFOAM case family.
 
 ## Installation
 
@@ -71,21 +118,29 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-## Running the pipeline
+## Reproducing the workflow with the missing CFD cases
 
-The copied manifests contain the original CFD-machine paths. Create local versions that point to the `cases` directory before running:
+Place the original cases in this local structure:
+
+```text
+cases/
+  training/T01 ... T40/
+  validation/V01 ... V07/
+```
+
+The committed manifests contain paths from the original CFD machine. Create local copies without modifying the evidence manifests:
 
 ```powershell
-$root = (Get-Location).Path
+$projectRoot = (Get-Location).Path
 $train = Import-Csv .\data\manifests\training_cases.csv
 $valid = Import-Csv .\data\manifests\validation_cases.csv
-foreach ($row in $train) { $row.case_path = Join-Path $root "cases\training\$($row.id)" }
-foreach ($row in $valid) { $row.case_path = Join-Path $root "cases\validation\$($row.id)" }
+foreach ($row in $train) { $row.case_path = Join-Path $projectRoot "cases\training\$($row.id)" }
+foreach ($row in $valid) { $row.case_path = Join-Path $projectRoot "cases\validation\$($row.id)" }
 $train | Export-Csv .\data\manifests\training_cases_local.csv -NoTypeInformation
 $valid | Export-Csv .\data\manifests\validation_cases_local.csv -NoTypeInformation
 ```
 
-Build POD and the primary field surrogate:
+Build the POD basis and primary field surrogate:
 
 ```powershell
 python .\src\pod_naca0012.py `
@@ -95,32 +150,33 @@ python .\src\pod_naca0012.py `
   --nx 192 --nz 128 --energy 0.999
 ```
 
-Generate field-validation figures and inspect force stability:
+Generate field-validation figures and the force-tail review:
 
 ```powershell
 python .\src\report_pod_validation.py `
-  --model-dir .\outputs\pod_model `
-  --validation-manifest .\data\manifests\validation_cases_local.csv `
-  --output-dir .\outputs\reports
+  --pod-dir .\outputs\pod_model `
+  --training-manifest .\data\manifests\training_cases_local.csv
 ```
 
-Evaluate Cp, the companion CL/CD surrogate, and runtime:
+Evaluate Cp, the companion CL/CD MLP, and runtime:
 
 ```powershell
 python .\src\evaluate_aerodynamics.py `
-  --model-dir .\outputs\pod_model `
-  --validation-manifest .\data\manifests\validation_cases_local.csv `
-  --output-dir .\outputs\engineering_evaluation
+  --pod-dir .\outputs\pod_model `
+  --training-manifest .\data\manifests\training_cases_local.csv `
+  --validation-manifest .\data\manifests\validation_cases_local.csv
 ```
 
-## Important modelling note
+The reporting scripts write below `outputs/pod_model/reports/` and `outputs/pod_model/engineering_evaluation/`.
 
-The POD field state is only `u`, `w`, and `p`. Wall shear stress is not reconstructed, so CL and CD are **not** computed by integrating the POD field. Instead, a companion 2 → 64 → 64 → 2 MLP is trained directly on the CFD force-coefficient data. Its validation MSE was 5.45e-05 for CL and 4.36e-08 for CD.
+## Interpretation limits
 
-## Case coverage
+Many manifest rows are marked `force_stable=False`, including all seven validation cases. Their warnings state that force coefficients were not steady. The field snapshots are recorded as converged and output-verified, but CL/CD metrics should be treated as results of the chosen tail-averaging procedure rather than fully steady force solutions.
 
-Training uses Re = 2M, 3M, 4M, 5M, 6M and AoA = −4°, 0°, 4°, 6°, 8°, 10°, 12°, 14°. The seven validation cases lie between those samples: 2.5M/2°, 2.5M/7°, 3.5M/2°, 3.5M/7°, 4.5M/5°, 4.5M/11°, and 5.5M/5°.
+The 12° and 14° cases may be near stall. Steady RANS solutions there are steady approximations and do not establish time-accurate separated-flow behavior.
 
-## Reproducing or extending the study
+Predictions are supported only within the sampled NACA 0012 operating domain. Extrapolation to another geometry, outside the Reynolds/AoA range, or into a different flow regime needs new CFD data and validation.
 
-For a different airfoil, use a common CFD mesh and modify the airfoil polygon in `src/pod_naca0012.py`. For better off-design accuracy, add CFD cases near flow-regime changes and consider an unsteady solver for post-stall conditions.
+## Extending the study
+
+For an auditable rerun, add or separately archive the original OpenFOAM case dictionaries, mesh-generation inputs, solver version, raw VTK exports, force histories, and logs. For a different airfoil, generate a consistent CFD database and update the solid mask in `src/pod_naca0012.py`. If a PINN is desired, implement it as a separate model with explicitly documented PDE residuals, boundary conditions, nondimensionalization, and validation; no PINN implementation is currently present.
