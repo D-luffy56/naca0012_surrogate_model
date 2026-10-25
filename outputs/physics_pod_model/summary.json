@@ -1,0 +1,98 @@
+{
+  "training_cases": 40,
+  "validation_cases": 7,
+  "grid_shape": [
+    128,
+    192
+  ],
+  "state_fields": [
+    "u",
+    "w",
+    "p"
+  ],
+  "pod_energy_threshold": 0.999,
+  "retained_modes": 4,
+  "retained_energy": 0.9995328783988953,
+  "training_pod_relative_l2": {
+    "u": 0.006047624163329601,
+    "w": 0.009524553082883358,
+    "p": 0.02591707557439804
+  },
+  "training_mlp_relative_l2": {
+    "u": 0.006155815065169936,
+    "w": 0.009751785921238905,
+    "p": 0.026006252599672555
+  },
+  "mlp_architecture": [
+    2,
+    64,
+    64,
+    4
+  ],
+  "mlp_activation": "ReLU",
+  "mlp_loss": "MSE on standardized POD coefficients",
+  "training_coefficient_mse": 0.14719964076543707,
+  "validation_mlp_relative_l2": {
+    "u": 0.00842832930504194,
+    "w": 0.016218946103380563,
+    "p": 0.037245107191210415
+  },
+  "validation_coefficient_mse": 4.0371422933474665,
+  "physics_informed": {
+    "description": "POD coefficient MLP with steady incompressible eddy-viscosity RANS mean-flow regularization",
+    "not_enforced": "k-omega SST transport equations and exact airfoil-wall boundary values",
+    "pressure_convention": "simpleFoam exported kinematic p; isotropic 2k/3 not added separately",
+    "nut_modes": 8,
+    "nut_retained_energy": 0.9999837279319763,
+    "physics_stencil_points": 23076,
+    "subdomain_edge_points": 636,
+    "weights": {
+      "data": 1.0,
+      "nut_data": 1.0,
+      "continuity": 0.01,
+      "momentum": 0.01,
+      "boundary": 0.1
+    },
+    "epochs": 100,
+    "training_relative_l2": {
+      "u": 0.006045596208423376,
+      "w": 0.009678245522081852,
+      "p": 0.02610035240650177
+    },
+    "training_nut_relative_l2": 0.001635598368011415,
+    "training_gridded_rans_residual_mse": {
+      "cfd": {
+        "continuity_mse": 0.0018978748703375459,
+        "momentum_mse": 0.0004935019533149898
+      },
+      "baseline_with_predicted_nut": {
+        "continuity_mse": 0.0015121622709557414,
+        "momentum_mse": 0.0007006174419075251
+      },
+      "physics_informed": {
+        "continuity_mse": 0.001511043286882341,
+        "momentum_mse": 0.0007021022611297667
+      }
+    },
+    "validation_relative_l2": {
+      "u": 0.008622722700238228,
+      "w": 0.015918636694550514,
+      "p": 0.03737068921327591
+    },
+    "validation_nut_relative_l2": 0.03962809219956398,
+    "validation_gridded_rans_residual_mse": {
+      "cfd": {
+        "continuity_mse": 0.0010320715373381972,
+        "momentum_mse": 0.0002789374557323754
+      },
+      "baseline_with_predicted_nut": {
+        "continuity_mse": 0.0009065961348824203,
+        "momentum_mse": 0.0003712292236741632
+      },
+      "physics_informed": {
+        "continuity_mse": 0.0009058346622623503,
+        "momentum_mse": 0.0003707000578287989
+      }
+    }
+  }
+}
