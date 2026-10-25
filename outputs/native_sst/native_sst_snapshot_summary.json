@@ -1,0 +1,16 @@
+{
+  "training_cases": 40,
+  "validation_cases": 7,
+  "native_xz_points": 38610,
+  "airfoil_wall_points": 400,
+  "fields": [
+    "u",
+    "w",
+    "p",
+    "k",
+    "omega",
+    "nut"
+  ],
+  "mesh_sha256": "ff27899b4a915c9785b8733af6376571290e98423861fe43e1b7b3e18653b3e7",
+  "note": "Raw native-mesh CFD snapshots; no model has been trained by this step."
+}
