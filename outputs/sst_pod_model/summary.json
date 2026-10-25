@@ -1,0 +1,37 @@
+{
+  "description": "Native-mesh POD coefficient network with approximate steady SST graph residuals",
+  "limitation": "Least-squares graph derivatives and CFD wall-value loss do not reproduce OpenFOAM finite-volume operators or nonlinear omega wall functions exactly.",
+  "training_cases": 40,
+  "validation_cases": 7,
+  "native_points": 38610,
+  "wall_points": 400,
+  "physics_points": 33692,
+  "retained_modes": 16,
+  "epochs": 20,
+  "physics_weight": 0.0001,
+  "wall_weight": 0.1,
+  "reference_residual_scale": {
+    "continuity": 0.06905907392501831,
+    "momentum_x": 0.03877553343772888,
+    "momentum_z": 0.03713240474462509,
+    "k_transport": 0.004368950612843037,
+    "omega_transport": 40.59395980834961,
+    "nut_closure": 9.999999747378752e-06
+  },
+  "validation_baseline_relative_l2": {
+    "u": 0.006183117081118153,
+    "w": 0.019024320135686577,
+    "p": 0.034264463825662166,
+    "k": 0.058853654259003026,
+    "omega": 0.011298196518575507,
+    "nut": 0.04525740440327627
+  },
+  "validation_sst_relative_l2": {
+    "u": 0.006196470465511084,
+    "w": 0.01917288266122341,
+    "p": 0.034430213272571564,
+    "k": 0.058999739587306976,
+    "omega": 0.011338579468429089,
+    "nut": 0.045308828353881836
+  }
+}
