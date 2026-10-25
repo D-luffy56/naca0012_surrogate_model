@@ -94,7 +94,7 @@ def load_manifest(path: Path) -> pd.DataFrame:
 
 def error_by_field(reference: np.ndarray, prediction: np.ndarray) -> dict[str, float]:
     return {
-        field: float(np.linalg.norm(prediction[i] - reference[i]) / np.linalg.norm(reference[i]))
+        field: float(np.linalg.norm(prediction[:, i] - reference[:, i]) / np.linalg.norm(reference[:, i]))
         for i, field in enumerate(FIELDS)
     }
 
@@ -104,6 +104,8 @@ def main() -> None:
     parser.add_argument("--training-manifest", type=Path, required=True)
     parser.add_argument("--validation-manifest", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--snapshots-dir", type=Path,
+                        help="Use committed common-grid arrays instead of reading CFD VTK files")
     parser.add_argument("--nx", type=int, default=192)
     parser.add_argument("--nz", type=int, default=128)
     parser.add_argument("--energy", type=float, default=0.999)
@@ -121,9 +123,19 @@ def main() -> None:
     solid_mask = MplPath(naca0012_polygon()).contains_points(grid_xy)
     fluid_mask = ~solid_mask
 
-    unique_indices, vertices, weights = interpolation_plan(latest_internal_vtu(train.iloc[0]), grid_xy)
+    if args.snapshots_dir is None:
+        unique_indices, vertices, weights = interpolation_plan(latest_internal_vtu(train.iloc[0]), grid_xy)
 
     def fields_for(frame: pd.DataFrame) -> np.ndarray:
+        if args.snapshots_dir is not None:
+            filename = "training_snapshots.npz" if frame is train else "validation_snapshots.npz"
+            with np.load(args.snapshots_dir / filename, allow_pickle=False) as saved:
+                if not np.array_equal(saved["ids"].astype(str), frame.id.to_numpy(dtype=str)):
+                    raise ValueError(f"Case IDs or order differ in {filename}")
+                fields = saved["fields"].copy()
+            if fields.shape != (len(frame), len(FIELDS), int(fluid_mask.sum())):
+                raise ValueError(f"Snapshot shape differs from requested grid in {filename}")
+            return fields
         result = []
         for _, row in frame.iterrows():
             sampled = sample_case(latest_internal_vtu(row), unique_indices, vertices, weights)

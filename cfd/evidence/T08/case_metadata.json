@@ -1,0 +1,21 @@
+{
+  "AoA_deg": 14,
+  "Re": 2000000,
+  "U": [
+    30.27322665981109,
+    0.0,
+    7.547963142709633
+  ],
+  "Uinf_mps": 31.2,
+  "chord_m": 1.0,
+  "id": "T08",
+  "mesh_route": "true_2d_empty",
+  "mesh_sha256": "ff27899b4a915c9785b8733af6376571290e98423861fe43e1b7b3e18653b3e7",
+  "nu_m2_s": 1.56e-05,
+  "settings_sha256": "939b74509383e1dbea29f7aec6d16186da1ffb6875613d35cc6026d418aa7cb1",
+  "solver": "simpleFoam",
+  "split": "training",
+  "turbulence_intensity": 0.01,
+  "turbulence_length_scale_m": 0.07,
+  "turbulence_model": "kOmegaSST"
+}

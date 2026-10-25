@@ -1,0 +1,78 @@
+{
+  "Cd_mean": 0.0182659741938614,
+  "Cl_mean": 1.01410125539042,
+  "converged": true,
+  "field_checks": {
+    "U": {
+      "max": 139.694537106,
+      "min": -42.9934180541,
+      "values": 113400
+    },
+    "k": {
+      "max": 218.891317877,
+      "min": 0.314892417654,
+      "values": 37800
+    },
+    "nut": {
+      "max": 0.029913664299,
+      "min": 1.9427946599e-05,
+      "values": 37800
+    },
+    "omega": {
+      "max": 209239.956877,
+      "min": 11.2784939067,
+      "values": 37800
+    },
+    "p": {
+      "max": 1957.78911082,
+      "min": -10358.1124828,
+      "values": 37800
+    }
+  },
+  "files": {
+    "1135/U": "684f7db1fa409d8de77670fc918034fb032eaacb4028b7f1c1106a23b3b120e3",
+    "1135/k": "50f94b9a02e62a0a0f5ed297366b71b9c0600b2165b74ed3ea65a33d8cedff9d",
+    "1135/nut": "635723bf8ee226311060d29c2c89d418ca3abe33228898c3d8dac062b87aef38",
+    "1135/omega": "65e33aca9b68f14709556ce6ca1be33766fb052ddd8206b0e1e2c901fd510a7a",
+    "1135/p": "f2c7ded8b46c084568c3d0efd0ed446df2b3d654761aed0fdd02363bf0e1aad6",
+    "VTK/T22.vtm.series": "36cf4b6bd4f64cfd16118c36b02dceb10628a4ad7eec6d5d62a774e9dee66780",
+    "VTK/T22_1135.vtm": "780e009d7b0e970bde848d6eda34700bc60f64d8d2f7811bb18348b64676ee2c",
+    "VTK/T22_1135/boundary.vtm": "2c740ab3eb37c0b6d29058c3c4fe346e6ed54bbae5b21881e4f4baf782de2db5",
+    "VTK/T22_1135/boundary/inlet.vtp": "f21ea574cd766071b70a44d179f723f86fef3bcd8c5b4283c967c14f33cdb868",
+    "VTK/T22_1135/boundary/pressure.vtp": "bbacab6b8df09eadc89b9cdf8af2c023103a42c6eec9f032904f0216ad257d4e",
+    "VTK/T22_1135/boundary/suction.vtp": "e4c2982b8a3f61cc7112faca906370bad4299bf792e1ebd53e6cdad61c703f46",
+    "VTK/T22_1135/internal.vtu": "eb16836ed800ebe4f636e4cc9f2a05b27afcdeca7ff4fd70fa3550d2cd1d5d2c",
+    "case_metadata.json": "8671b61501a539bcd26735a08b619440a71f162f938c8db9a2e6cc595ca60eac",
+    "constant/transportProperties": "22da7091fc3d8ba8f38d225cc3ad73c1d87adc9ef97d0585ee7b761d362301d4",
+    "constant/turbulenceProperties": "c5671c22493724db9cf124ac7becfa45026a57f96dc6f390981b283e25a7bd92",
+    "log.foamToVTK": "bb0a191baf7264f71acb9687bbdc7337526792805fd654dcc4330ae4837a59f7",
+    "log.simpleFoam": "1e3d6d11a9f971d20f563de145e154b6d042fc20bf0aa5270d7f7128a3c7e698",
+    "postProcessing/forceCoeffs/0/coefficient.dat": "c2ee0c07c483c7802aee0f9bc6633e56e96145ac8dfd097bcddbedbd56f6a7bd",
+    "postProcessing/yPlus/0/yPlus.dat": "9ac2ff3b598a0af2e6bfb9c38d2627936540fc64b7f384624a2338adda52735f",
+    "residual_history.csv": "288acfb039961a6f4cb02a48e841bf147005346d596777eaf08c7b8ce4bcac80",
+    "system/controlDict": "02b2ce31e99479250abb1e12dc4cad48775bd8621f36491dc9f41a872c8b784e",
+    "system/fvSchemes": "2f695e0ed3295dc5e5c451febb6f8117ee12f2abe62725afc8a2683fd75ff16f",
+    "system/fvSolution": "1aa56ef368c62617db7da0991b84cfd31aa60699fa8b067e53dea7ed2a7f97c6"
+  },
+  "final_residuals": {
+    "Ux": 5.51944733999e-07,
+    "Uz": 1.53006565983e-07,
+    "iteration": 1135.0,
+    "k": 1.07289430896e-08,
+    "omega": 2.31485414653e-09,
+    "p": 9.96107690961e-07
+  },
+  "force_samples": 113,
+  "force_stable": false,
+  "latest_time": "1135",
+  "mesh_sha256": "ff27899b4a915c9785b8733af6376571290e98423861fe43e1b7b3e18653b3e7",
+  "settings_sha256": "939b74509383e1dbea29f7aec6d16186da1ffb6875613d35cc6026d418aa7cb1",
+  "spec": {
+    "AoA_deg": 10,
+    "Re": 4000000,
+    "id": "T22",
+    "split": "training"
+  },
+  "status": "outputs_verified",
+  "warning": "force_coefficients_not_steady"
+}
