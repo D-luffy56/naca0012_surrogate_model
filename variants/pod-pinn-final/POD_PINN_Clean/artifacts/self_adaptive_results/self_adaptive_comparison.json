@@ -1,0 +1,217 @@
+{
+  "fixed_64x64": {
+    "architecture": [
+      2,
+      64,
+      64,
+      25
+    ],
+    "activation": "tanh",
+    "optimizer": "L-BFGS",
+    "l2_weight": 0.0001,
+    "loss_multipliers": {
+      "data": 1.0,
+      "continuity": 1.0,
+      "momentum": 1.0,
+      "boundary": 1.0
+    },
+    "max_lbfgs_iterations": 500,
+    "closure_evaluations": 507,
+    "elapsed_seconds": 37.74557378500003,
+    "final_losses": {
+      "closure": 507,
+      "total": 0.057645718938077295,
+      "data": 0.0018721684640578909,
+      "continuity": 0.0016020738374245495,
+      "momentum": 0.0007178706507940437,
+      "boundary": 6.853311816735119e-06,
+      "l2_unweighted": 534.4675267398408
+    },
+    "train_standardized_coefficient_rmse": 0.04326856207522837,
+    "validation_standardized_coefficient_rmse": 69.26682779366868,
+    "train_field_relative_l2": {
+      "u": 8.132556457340514e-05,
+      "w": 0.003238080338304449,
+      "p": 0.0033693494840645755,
+      "nut": 0.0007117507940785228
+    },
+    "validation_field_relative_l2": {
+      "u": 0.0011119761551031352,
+      "w": 0.020874770399773437,
+      "p": 0.020017122667397972,
+      "nut": 0.015046603242219446
+    },
+    "train_boundary_relative_l2": {
+      "u": 7.056749721858232e-05,
+      "w": 0.0032378978255172726,
+      "p": 0.0036198058116209985,
+      "nut": 0.0006384702449833165
+    },
+    "validation_boundary_relative_l2": {
+      "u": 0.0007338589048224628,
+      "w": 0.020882768193292815,
+      "p": 0.027422157504796665,
+      "nut": 0.018327798083644927
+    },
+    "train_physics_residual": {
+      "continuity_rms": 0.04002591457324304,
+      "momentum_x_rms": 0.02947069246838006,
+      "momentum_z_rms": 0.02381637224730614
+    },
+    "validation_physics_residual": {
+      "continuity_rms": 0.032729152360811184,
+      "momentum_x_rms": 0.025716138926353497,
+      "momentum_z_rms": 0.023313695652800132
+    },
+    "train_negative_nut_fraction": 0.0,
+    "validation_negative_nut_fraction": 3.0517578125e-05,
+    "validation_pressure_coefficient_mae": {
+      "Cl_pressure": 0.010045384248890399,
+      "Cd_pressure": 0.003025449876144493
+    },
+    "validation_pressure_coefficients": {
+      "V01": {
+        "Cl_pressure_true": 0.20901709097960475,
+        "Cd_pressure_true": 0.002063178322320101,
+        "Cl_pressure_predicted": 0.20637326479842133,
+        "Cd_pressure_predicted": 0.007454382745445706
+      },
+      "V02": {
+        "Cl_pressure_true": 0.7254657528899695,
+        "Cd_pressure_true": 0.0064486430176849685,
+        "Cl_pressure_predicted": 0.7141537465824385,
+        "Cd_pressure_predicted": 0.013242353393726786
+      },
+      "V03": {
+        "Cl_pressure_true": 0.2101068042741154,
+        "Cd_pressure_true": 0.0019817515466971376,
+        "Cl_pressure_predicted": 0.2431179461255447,
+        "Cd_pressure_predicted": 0.0014244957335111741
+      },
+      "V04": {
+        "Cl_pressure_true": 0.728865800325671,
+        "Cd_pressure_true": 0.006290405272991503,
+        "Cl_pressure_predicted": 0.7322537833891455,
+        "Cd_pressure_predicted": 0.005731210282278354
+      },
+      "V05": {
+        "Cl_pressure_true": 0.5266465185706537,
+        "Cd_pressure_true": 0.003801911004137064,
+        "Cl_pressure_predicted": 0.5212034665625432,
+        "Cd_pressure_predicted": 0.006491561729373992
+      },
+      "V06": {
+        "Cl_pressure_true": 1.1016399461078916,
+        "Cd_pressure_true": 0.0153077840946364,
+        "Cl_pressure_predicted": 1.114255497678265,
+        "Cd_pressure_predicted": 0.011487567946791233
+      },
+      "V07": {
+        "Cl_pressure_true": 0.5280275836707345,
+        "Cd_pressure_true": 0.003736334536921057,
+        "Cl_pressure_predicted": 0.5326536783712772,
+        "Cd_pressure_predicted": 0.003956854368423149
+      },
+      "V08": {
+        "Cl_pressure_true": 1.1048121311491859,
+        "Cd_pressure_true": 0.01514463360717011,
+        "Cl_pressure_predicted": 1.1121355494576644,
+        "Cd_pressure_predicted": 0.010972786905664889
+      }
+    }
+  },
+  "self_adaptive_64x64": {
+    "architecture": [
+      2,
+      64,
+      64,
+      25
+    ],
+    "activation": "tanh",
+    "optimizer": "L-BFGS",
+    "weighting_method": "bounded homoscedastic uncertainty weighting",
+    "adaptive_objective": "sum(exp(-s_i) * L_i + s_i), s_i in [-5, 5]",
+    "initial_loss_weights": {
+      "data": 1.0,
+      "continuity": 1.0,
+      "momentum": 1.0,
+      "boundary": 1.0
+    },
+    "learned_loss_weights": {
+      "data": 1.420837869998063,
+      "continuity": 148.39587470463377,
+      "momentum": 148.3723215643859,
+      "boundary": 148.0828299404965
+    },
+    "learned_log_variances": {
+      "data": -0.3512467468969415,
+      "continuity": -4.9998835318606,
+      "momentum": -4.999724800968318,
+      "boundary": -4.997771778971992
+    },
+    "l2_weight": 0.0001,
+    "max_lbfgs_iterations": 500,
+    "closure_evaluations": 528,
+    "elapsed_seconds": 30.84477290999996,
+    "final_train_component_losses": {
+      "data": 0.6972850552672689,
+      "continuity": 0.0012867937661777168,
+      "momentum": 0.0008565904674639674,
+      "boundary": 0.00020269871369336105
+    },
+    "validation_component_losses": {
+      "data": 4785.690064808563,
+      "continuity": 0.0009240267707175433,
+      "momentum": 0.0006427231922207367,
+      "boundary": 0.0009541008776015105
+    },
+    "train_standardized_coefficient_rmse": 0.8350359604635413,
+    "validation_standardized_coefficient_rmse": 69.17868215576648,
+    "train_field_relative_l2": {
+      "u": 0.000851858941820932,
+      "w": 0.010163605625507457,
+      "p": 0.011794040839051334,
+      "nut": 0.012411821192163705
+    },
+    "validation_field_relative_l2": {
+      "u": 0.0011738392806613872,
+      "w": 0.012041988897238703,
+      "p": 0.014303846007300043,
+      "nut": 0.019687335802058375
+    },
+    "train_boundary_relative_l2": {
+      "u": 0.0004928260969801507,
+      "w": 0.010103477610811137,
+      "p": 0.01196123824255239,
+      "nut": 0.012173006250844847
+    },
+    "validation_boundary_relative_l2": {
+      "u": 0.0006250795057592666,
+      "w": 0.011991308904728135,
+      "p": 0.01508429678056814,
+      "nut": 0.02265721686971395
+    },
+    "train_physics_residual": {
+      "continuity_rms": 0.03587190775771086,
+      "momentum_x_rms": 0.03381300731536879,
+      "momentum_z_rms": 0.023871771430263648
+    },
+    "validation_physics_residual": {
+      "continuity_rms": 0.030397808649926448,
+      "momentum_x_rms": 0.02862000978774063,
+      "momentum_z_rms": 0.021594939782067096
+    },
+    "train_negative_nut_fraction": 0.000311279296875,
+    "validation_negative_nut_fraction": 0.0,
+    "validation_pressure_coefficient_mae": {
+      "Cl_pressure": 0.008483135732067267,
+      "Cd_pressure": 0.0008220379328822934
+    }
+  },
+  "mean_validation_field_relative_l2": {
+    "fixed": 0.014262618116123497,
+    "self_adaptive": 0.011801752496814626,
+    "relative_improvement": 0.17253954353071616
+  },
+  "caution": "Continuity, momentum, and boundary weights reached the imposed exp(5) stability ceiling; the result is a bounded adaptive solution, not an unconstrained optimum."
+}

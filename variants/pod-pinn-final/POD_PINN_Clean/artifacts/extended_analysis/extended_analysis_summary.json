@@ -1,0 +1,47 @@
+{
+  "figures": [
+    "adaptive_contours_V01.png",
+    "adaptive_contours_V05.png",
+    "adaptive_contours_V06.png",
+    "adaptive_loss_contributions.png",
+    "casewise_error_heatmaps.png",
+    "error_vs_parameters.png",
+    "leading_coefficient_parity.png",
+    "leading_pod_modes.png",
+    "pod_spectrum_and_energy.png",
+    "pressure_force_parity.png",
+    "spatial_physics_residuals_V06.png",
+    "surface_cp_comparisons.png",
+    "wake_profiles_V06.png"
+  ],
+  "validation_cases": [
+    "V01",
+    "V02",
+    "V03",
+    "V04",
+    "V05",
+    "V06",
+    "V07",
+    "V08"
+  ],
+  "selected_contour_cases": [
+    "V01",
+    "V05",
+    "V06"
+  ],
+  "wake_case": "V06",
+  "wake_stations_x_over_c": [
+    0.5,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "fixed_mean_case_field_error": 0.01698780746628841,
+  "adaptive_mean_case_field_error": 0.014140537676633612,
+  "pressure_force_mae": {
+    "fixed_Cl": 0.010045384041329375,
+    "fixed_Cd": 0.0030254498687544928,
+    "adaptive_Cl": 0.008483135552047733,
+    "adaptive_Cd": 0.000822037879428905
+  }
+}

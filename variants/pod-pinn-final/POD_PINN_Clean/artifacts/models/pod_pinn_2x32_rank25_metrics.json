@@ -1,0 +1,121 @@
+{
+  "architecture": [
+    2,
+    32,
+    32,
+    25
+  ],
+  "activation": "tanh",
+  "optimizer": "L-BFGS",
+  "l2_weight": 0.0001,
+  "loss_multipliers": {
+    "data": 1.0,
+    "continuity": 1.0,
+    "momentum": 1.0,
+    "boundary": 1.0
+  },
+  "max_lbfgs_iterations": 500,
+  "closure_evaluations": 506,
+  "elapsed_seconds": 35.758264571999916,
+  "final_losses": {
+    "closure": 506,
+    "total": 0.07147050893307781,
+    "data": 0.0038351409003927264,
+    "continuity": 0.0015933524081321762,
+    "momentum": 0.0007283398095798788,
+    "boundary": 1.6878232541619495e-05,
+    "l2_unweighted": 652.9679758243141
+  },
+  "train_standardized_coefficient_rmse": 0.06192851443715348,
+  "validation_standardized_coefficient_rmse": 69.25811147985615,
+  "train_field_relative_l2": {
+    "u": 0.00014434316637468918,
+    "w": 0.0041246626940338905,
+    "p": 0.004545010045173863,
+    "nut": 0.0013375637988983335
+  },
+  "validation_field_relative_l2": {
+    "u": 0.0013817736943689276,
+    "w": 0.04802630768778887,
+    "p": 0.04269296270978611,
+    "nut": 0.02220213372923308
+  },
+  "train_boundary_relative_l2": {
+    "u": 0.00012938100806350204,
+    "w": 0.004124197715277213,
+    "p": 0.005661434500323398,
+    "nut": 0.0012332863604270362
+  },
+  "validation_boundary_relative_l2": {
+    "u": 0.0009218201137076628,
+    "w": 0.048040073428145855,
+    "p": 0.04576419996520486,
+    "nut": 0.025389595347391034
+  },
+  "train_physics_residual": {
+    "continuity_rms": 0.039916818612361585,
+    "momentum_x_rms": 0.029738083911990447,
+    "momentum_z_rms": 0.02392333556181438
+  },
+  "validation_physics_residual": {
+    "continuity_rms": 0.03428504037668684,
+    "momentum_x_rms": 0.03495616308721704,
+    "momentum_z_rms": 0.028280650775394905
+  },
+  "train_negative_nut_fraction": 0.0,
+  "validation_negative_nut_fraction": 0.003173828125,
+  "validation_pressure_coefficient_mae": {
+    "Cl_pressure": 0.023522007190241303,
+    "Cd_pressure": 0.003184803105188823
+  },
+  "validation_pressure_coefficients": {
+    "V01": {
+      "Cl_pressure_true": 0.20901709097960475,
+      "Cd_pressure_true": 0.002063178322320101,
+      "Cl_pressure_predicted": 0.22133412175214637,
+      "Cd_pressure_predicted": 0.0011682127779668117
+    },
+    "V02": {
+      "Cl_pressure_true": 0.7254657528899695,
+      "Cd_pressure_true": 0.0064486430176849685,
+      "Cl_pressure_predicted": 0.7928557322006535,
+      "Cd_pressure_predicted": 0.005808447753204063
+    },
+    "V03": {
+      "Cl_pressure_true": 0.2101068042741154,
+      "Cd_pressure_true": 0.0019817515466971376,
+      "Cl_pressure_predicted": 0.24484796783158444,
+      "Cd_pressure_predicted": 0.014628965191756287
+    },
+    "V04": {
+      "Cl_pressure_true": 0.728865800325671,
+      "Cd_pressure_true": 0.006290405272991503,
+      "Cl_pressure_predicted": 0.6916070334607982,
+      "Cd_pressure_predicted": 0.009065172073576572
+    },
+    "V05": {
+      "Cl_pressure_true": 0.5266465185706537,
+      "Cd_pressure_true": 0.003801911004137064,
+      "Cl_pressure_predicted": 0.5195079593868829,
+      "Cd_pressure_predicted": 0.0016217406727148873
+    },
+    "V06": {
+      "Cl_pressure_true": 1.1016399461078916,
+      "Cd_pressure_true": 0.0153077840946364,
+      "Cl_pressure_predicted": 1.0906570654439076,
+      "Cd_pressure_predicted": 0.018604817602676793
+    },
+    "V07": {
+      "Cl_pressure_true": 0.5280275836707345,
+      "Cd_pressure_true": 0.003736334536921057,
+      "Cl_pressure_predicted": 0.5217783965881484,
+      "Cd_pressure_predicted": 0.0022611702561441474
+    },
+    "V08": {
+      "Cl_pressure_true": 1.1048121311491859,
+      "Cd_pressure_true": 0.01514463360717011,
+      "Cl_pressure_predicted": 1.092713641063164,
+      "Cd_pressure_predicted": 0.013575718140377419
+    }
+  }
+}
