@@ -1,0 +1,88 @@
+{
+  "architecture": [
+    2,
+    64,
+    64,
+    25
+  ],
+  "activation": "tanh",
+  "optimizer": "L-BFGS",
+  "weighting_method": "bounded homoscedastic uncertainty weighting",
+  "adaptive_objective": "sum(exp(-s_i) * L_i + s_i), s_i in [-5, 5]",
+  "initial_loss_weights": {
+    "data": 1.0,
+    "continuity": 1.0,
+    "momentum": 1.0,
+    "boundary": 1.0
+  },
+  "learned_loss_weights": {
+    "data": 1.420837869998063,
+    "continuity": 148.39587470463377,
+    "momentum": 148.3723215643859,
+    "boundary": 148.0828299404965
+  },
+  "learned_log_variances": {
+    "data": -0.3512467468969415,
+    "continuity": -4.9998835318606,
+    "momentum": -4.999724800968318,
+    "boundary": -4.997771778971992
+  },
+  "l2_weight": 0.0001,
+  "max_lbfgs_iterations": 500,
+  "closure_evaluations": 528,
+  "elapsed_seconds": 30.84477290999996,
+  "final_train_component_losses": {
+    "data": 0.6972850552672689,
+    "continuity": 0.0012867937661777168,
+    "momentum": 0.0008565904674639674,
+    "boundary": 0.00020269871369336105
+  },
+  "validation_component_losses": {
+    "data": 4785.690064808563,
+    "continuity": 0.0009240267707175433,
+    "momentum": 0.0006427231922207367,
+    "boundary": 0.0009541008776015105
+  },
+  "train_standardized_coefficient_rmse": 0.8350359604635413,
+  "validation_standardized_coefficient_rmse": 69.17868215576648,
+  "train_field_relative_l2": {
+    "u": 0.000851858941820932,
+    "w": 0.010163605625507457,
+    "p": 0.011794040839051334,
+    "nut": 0.012411821192163705
+  },
+  "validation_field_relative_l2": {
+    "u": 0.0011738392806613872,
+    "w": 0.012041988897238703,
+    "p": 0.014303846007300043,
+    "nut": 0.019687335802058375
+  },
+  "train_boundary_relative_l2": {
+    "u": 0.0004928260969801507,
+    "w": 0.010103477610811137,
+    "p": 0.01196123824255239,
+    "nut": 0.012173006250844847
+  },
+  "validation_boundary_relative_l2": {
+    "u": 0.0006250795057592666,
+    "w": 0.011991308904728135,
+    "p": 0.01508429678056814,
+    "nut": 0.02265721686971395
+  },
+  "train_physics_residual": {
+    "continuity_rms": 0.03587190775771086,
+    "momentum_x_rms": 0.03381300731536879,
+    "momentum_z_rms": 0.023871771430263648
+  },
+  "validation_physics_residual": {
+    "continuity_rms": 0.030397808649926448,
+    "momentum_x_rms": 0.02862000978774063,
+    "momentum_z_rms": 0.021594939782067096
+  },
+  "train_negative_nut_fraction": 0.000311279296875,
+  "validation_negative_nut_fraction": 0.0,
+  "validation_pressure_coefficient_mae": {
+    "Cl_pressure": 0.008483135732067267,
+    "Cd_pressure": 0.0008220379328822934
+  }
+}
