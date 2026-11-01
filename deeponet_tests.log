@@ -1,0 +1,9 @@
+test_physics_backpropagates_through_pod (test_deeponet.DeepONetTests.test_physics_backpropagates_through_pod) ... ok
+test_roundtrip (test_deeponet.DeepONetTests.test_roundtrip) ... ok
+test_shape_single_batch_and_gradients (test_deeponet.DeepONetTests.test_shape_single_batch_and_gradients) ... ok
+test_training_reduces_known_target_error (test_deeponet.DeepONetTests.test_training_reduces_known_target_error) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.223s
+
+OK

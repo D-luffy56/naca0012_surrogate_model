@@ -1,0 +1,6 @@
+{
+  "checkpoint_reload_validation_max_abs_nondimensional": 0.00035637433029478416,
+  "original_residual_equivalence": "exact on synthetic positive state",
+  "original_archive_files_modified": [],
+  "unit_tests_passed": 4
+}
